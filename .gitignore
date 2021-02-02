@@ -1,0 +1,23 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Distribution / packaging
+
+# Unit test / coverage reports
+
+# Flask stuff:
+instance/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# Pyre type checker
+.DS_Store
+
+.idea
+
+*.pyc
+*.pyo
+*.pyd
+__pycache__
+.pytest_cache
