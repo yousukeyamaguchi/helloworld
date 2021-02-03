@@ -12,7 +12,12 @@ services:
 
   api:
     build: .
-    command: gunicorn --bind :8080 --workers 1 --threads 8 main:app
+    container_name: api
+    command: >
+      bash -c "gunicorn --bind :8080 --workers 1 --threads 8 main:app --reload
+      && wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+      && chmod +x cloud_sql_proxy
+      && ./cloud_sql_proxy -instances=flaskrun:asia-northeast1:myinstance=tcp:3306 -credential_file=flaskrun-develop.json"
     volumes:
       - ./src:/app
     ports:
@@ -20,6 +25,7 @@ services:
     environment:
       - TZ=Asia/Tokyo
     tty: true
+    stdin_open: true
 #    depends_on:
 #      - mysql
 
