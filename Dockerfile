@@ -3,7 +3,7 @@ FROM python:3.7-slim
 ENV APP_ROOT /app
 WORKDIR $APP_ROOT
 
-COPY ./src $APP_ROOT
+COPY ./requirements.txt $APP_ROOT
 
 RUN set -ex &&\
     pip install -r requirements.txt &&\
