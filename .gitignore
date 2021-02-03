@@ -15,9 +15,11 @@ instance/
 .DS_Store
 
 .idea
-
 *.pyc
 *.pyo
 *.pyd
-__pycache__
-.pytest_cache
+*.pytest_cache
+
+cloud_sql_proxy
+flaskrun-develop.json
+src/__pycache__/main.cpython-37.pyc
