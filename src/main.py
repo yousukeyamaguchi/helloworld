@@ -31,6 +31,7 @@ def hello_world():
       ),
       **db_config
     )
+    stmt = sqlalchemy.text("INSERT INTO entries (guestName, content) values ('another guest', 'Also this one');")
   else:
     print('=================== running local ===================')
     db = sqlalchemy.create_engine(
@@ -46,13 +47,12 @@ def hello_world():
           ),
           **db_config
     )
+    stmt = sqlalchemy.text("INSERT INTO entries (guestName, content) values ('local guest', 'Also this one');")
 
-  stmt = sqlalchemy.text("INSERT INTO entries (guestName, content) values ('another guest', 'Also this one');")
   try:
     with db.connect() as conn:
       conn.execute(stmt)
   except Exception as e:
-    # return 'fugafuga'
     return 'Error: {}'.format(str(e))
   return 'Hello! You wrote something into your database!\n'
 
