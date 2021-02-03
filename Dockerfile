@@ -1,13 +1,10 @@
-# Run the web service on container startup.# https://hub.docker.com/_/python
 FROM python:3.7-slim
 
-# Copy local code to the container image.
 ENV APP_ROOT /app
 WORKDIR $APP_ROOT
 
-COPY ./src $APP_ROOT
+COPY ./requirements.txt $APP_ROOT
 
-# Install production dependencies.
 RUN set -ex &&\
     pip install -r requirements.txt &&\
     pip install gunicorn
