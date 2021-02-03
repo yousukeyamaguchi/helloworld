@@ -9,8 +9,6 @@ COPY ./src $APP_ROOT
 
 # Install production dependencies.
 RUN set -ex &&\
-    apt-get update &&\
-    apt-get install -y wget &&\
     pip install -r requirements.txt &&\
     pip install gunicorn
 
@@ -21,4 +19,4 @@ RUN pip install Flask gunicorn
 # webserver, with one worker process and 8 threads.
 # For environments with multiple CPU cores, increase the number of workers
 # to be equal to the cores available.
-CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 main:app --reload
+CMD exec gunicorn --bind :$PORT --workers 1 --threads 8 main:app

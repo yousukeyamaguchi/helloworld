@@ -14,7 +14,9 @@ services:
     build: .
     container_name: api
     command: >
-      bash -c "wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
+      bash -c "apt-get update
+      && apt-get install -y wget
+      && wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
       && chmod +x cloud_sql_proxy
       && ./cloud_sql_proxy -instances=flaskrun:asia-northeast1:myinstance=tcp:3306 -credential_file=flaskrun-develop.json"
     volumes:
