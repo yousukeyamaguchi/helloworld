@@ -23,3 +23,4 @@ instance/
 cloud_sql_proxy
 flaskrun-develop.json
 src/__pycache__/main.cpython-37.pyc
+mysql/data
