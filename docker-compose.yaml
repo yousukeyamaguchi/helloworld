@@ -1,16 +1,21 @@
 version: '3'
 services:
-#  mysql:
-#    image: mysql:5.7.26
-#    volumes:
-#      - ./mysql-data:/var/lib/mysql
-#    environment:
-#      - MYSQL_ROOT_PASSWORD=password
-#      - MYSQL_USER=root
-#      - MYSQL_PASSWORD=root
-#      - MYSQL_DATABASE=guestbook
-#    ports:
-#      - 3306:3306
+  mysql:
+    image: mysql:5.7
+    container_name: mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=test_db
+      - MYSQL_USER=docker
+      - MYSQL_PASSWORD=docker
+      - TZ='Asia/Tokyo'
+    volumes:
+      - ./mysql/data:/var/lib/mysql  # MySQLデータ
+      - ./mysql/my.cnf:/etc/mysql/conf.d/my.cnf  # MySQL設定ファイル
+      - ./mysql/sql:/docker-entrypoint-initdb.d  # MySQL起動時の初期化スクリプト置き場(*.sql、*.shのファイルを使えます)
+    ports:
+      - "3306:3306"
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
 
   api:
     build: .
@@ -35,6 +40,5 @@ services:
       - DB_NAME=guestbook
     tty: true
     stdin_open: true
-#    depends_on:
-#      - mysql
-
+    depends_on:
+      - mysql
