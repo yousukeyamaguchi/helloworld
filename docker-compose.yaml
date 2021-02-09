@@ -5,7 +5,7 @@ services:
     container_name: mysql
     environment:
       - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=test_db
+      - MYSQL_DATABASE=guestbook
       - MYSQL_USER=docker
       - MYSQL_PASSWORD=docker
       - TZ='Asia/Tokyo'
@@ -20,13 +20,7 @@ services:
   api:
     build: .
     container_name: api
-    command: >
-      bash -c "apt-get update
-      && apt-get install -y wget
-      && wget https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64 -O cloud_sql_proxy
-      && chmod +x cloud_sql_proxy
-      && gunicorn --bind :8080 --workers 1 --threads 8 main:app --reload -D
-      && ./cloud_sql_proxy -instances=flaskrun:asia-northeast1:myinstance=tcp:3306 -credential_file=flaskrun-develop.json"
+    command: gunicorn --bind :8080 --workers 1 --threads 8 main:app --reload
     volumes:
       - ./src:/app
     ports:
@@ -35,8 +29,8 @@ services:
       - TZ=Asia/Tokyo
       - ENV=dev
       - CLOUD_SQL_CONNECTION_NAME=flaskrun:asia-northeast1:myinstance
-      - DB_USER=root
-      - DB_PASS=12345678
+      - DB_USER=docker
+      - DB_PASS=docker
       - DB_NAME=guestbook
     tty: true
     stdin_open: true
